@@ -1,20 +1,19 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-function isLoggedIn(req, res, next) {
-  if (req.session.user !== undefined) {
-    next();
+router.get('/', function(req, res, next) {
+  if (req.session.user == undefined) {
+    res.render('landing');
   } else {
-    res.redirect("/login");
+    res.render('index', { 
+      title: 'Passport Demo', 
+      username:  req.session.user.username
+    });
   }
-}
-router.get('/', isLoggedIn, function(req, res, next) {
-  console.log(JSON.stringify(req.session.user))
-  res.render('index', { 
-    title: 'Passport Demo', 
-    username:  req.session.user.username
-  });
+});
+router.get('/logout', function(req, res, next) {
+  req.session.user = undefined;
+  res.redirect('/');
 });
 
 module.exports = router;

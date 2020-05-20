@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 LocalStrategy = require('passport-local').Strategy;
 var { User } = require('../models/model');
+var validate = require('../controllers/validate');
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -32,8 +33,11 @@ passport.deserializeUser(function(id, done) {
   });
 });
 router.get('/', function(req, res, next) {
-  console.log(req.params)
-  res.render('login');
+  if (req.session.user !== undefined) {
+    res.redirect('/');
+  } else {
+    res.render('login');
+  }
 });
 
 router.post('/',
