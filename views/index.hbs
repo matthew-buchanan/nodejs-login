@@ -1,7 +1,36 @@
 <div class="container">
-<h1 class="display-2">{{title}}</h1>
-<p class="lead">Welcome {{username}}</p>
-<a href="/logout">Sign Out</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Passport Demo</a>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{username}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/logout">Sign Out</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<h2 class="lead">Reminders</h2>
+<form action="/" method="POST">
+  <div class="form-group">
+    <label for="inputCard">New Task</label>
+    <input type="text" class="form-control" id="inputCard" name="task">
+  </div>
+  <button type="submit" class="btn btn-primary">+ Add</button>
+</form>
+<div class="row">
+  {{#each task}}
+  <div class="card">
+    <div class="card-body">
+      <p class="card-text">{{this}}</p>
+    </div>
+  </div>
+  {{/each}}
+</div>
 </div>
 
 
